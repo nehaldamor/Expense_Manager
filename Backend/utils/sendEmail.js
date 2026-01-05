@@ -24,11 +24,11 @@
 // };
 
 
-import Brevo from "@getbrevo/brevo";
-import dotenv from "dotenv";
+const Brevo =require("@getbrevo/brevo");
+const dotenv =require("dotenv");
 dotenv.config();
 
-export const sendEmail = async (to, subject, message) => {
+module.expor.sendEmail = async (to, subject, message,attachments=[]) => {
   try {
     const apiInstance = new Brevo.TransactionalEmailsApi();
 
@@ -36,11 +36,10 @@ export const sendEmail = async (to, subject, message) => {
     apiInstance.authentications["apiKey"].apiKey = process.env.SMTP_PASS;
 
     const sendSmtpEmail = {
-      sender: { name: "verifyaccount", email: "nehaldamor77@gmail.com" }, // verified sender
+      sender: { name: "KheloFF", email: "nehaldamor77@gmail.com" }, // verified sender
       to: [{ email: to }],
       subject,
       htmlContent: `<p>${message}</p>`,
-      attachments
     };
 
     const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
@@ -49,4 +48,5 @@ export const sendEmail = async (to, subject, message) => {
     console.error("❌ Email sending failed:", error.response?.text || error);
   }
 };
+
 
