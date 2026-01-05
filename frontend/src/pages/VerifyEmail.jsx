@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api/api";
 
 export default function VerifyEmail() {
   const [status, setStatus] = useState("Verifying your email...");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -18,13 +20,13 @@ export default function VerifyEmail() {
       .then(() => {
         setStatus("✅ Email verified successfully! You can login now.");
         setTimeout(() => {
-          window.location = "/";
+          navigate("/");
         }, 2000);
       })
       .catch(() => {
         setStatus("❌ Verification failed or link expired");
       });
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -32,7 +34,16 @@ export default function VerifyEmail() {
         <h2 className="text-xl font-semibold text-gray-800 mb-3">
           Email Verification
         </h2>
-        <p className="text-gray-600">{status}</p>
+
+        <p className="text-gray-600 mb-4">{status}</p>
+
+        {/* Manual navigation fallback */}
+        <Link
+          to="/"
+          className="text-blue-600 font-medium hover:underline"
+        >
+          Go to Login
+        </Link>
       </div>
     </div>
   );
