@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ✅ useNavigate import karo
 import api from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 
@@ -7,13 +7,16 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
-  
+
+  const navigate = useNavigate(); // ✅ hook initialize karo
+
   const handleLogin = async () => {
     try {
       const res = await api.post("/auth/login", { email, password });
       const data = res.data;
       login(data.user, data.token);
-      window.location = "/dashboard";
+
+      navigate("/dashboard"); // ✅ SPA style navigation
     } catch (err) {
       alert("Invalid email or password");
     }
@@ -22,7 +25,6 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Welcome
         </h2>
