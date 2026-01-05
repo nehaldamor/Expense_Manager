@@ -36,7 +36,7 @@ module.exports.sendEmail = async (to, subject, message,attachments=[]) => {
     apiInstance.authentications["apiKey"].apiKey = process.env.SMTP_PASS;
 
     const sendSmtpEmail = {
-      sender: { name: "KheloFF", email: "nehaldamor77@gmail.com" }, // verified sender
+      sender: { name: "verify email", email: "nehaldamor77@gmail.com" }, // verified sender
       to: [{ email: to }],
       subject,
       htmlContent: `<p>${message}</p>`,
