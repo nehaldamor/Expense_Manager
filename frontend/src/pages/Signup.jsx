@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import api from "../api/api";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
 
@@ -16,7 +18,7 @@ export default function Signup() {
     try {
       await api.post("/auth/signup", { ...form, token });
       alert("Email verification sent. Please check your inbox.");
-      window.location = "/";
+      navigate("/"); // React way
     } catch (err) {
       alert("Signup failed");
     }
