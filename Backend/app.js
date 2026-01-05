@@ -4,7 +4,9 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const inviteRoutes = require("./routes/invite.routes");
 const expenseRoutes = require("./routes/expense.routes");
+ connectDB = require("./db/db");
 
+connectDB();
 require("./cron/dailyReport");
 
 const app = express();
