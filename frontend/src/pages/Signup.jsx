@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../api/api";
 
 export default function Signup() {
@@ -14,7 +15,7 @@ export default function Signup() {
   const handleSignup = async () => {
     try {
       await api.post("/auth/signup", { ...form, token });
-      alert("email verification sent. Please check your inbox.");
+      alert("Email verification sent. Please check your inbox.");
       window.location = "/";
     } catch (err) {
       alert("Signup failed");
@@ -88,9 +89,12 @@ export default function Signup() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Already have an account?{" "}
-          <a href="/" className="text-blue-600 font-medium hover:underline">
+          <Link
+            to="/"
+            className="text-blue-600 font-medium hover:underline"
+          >
             Login
-          </a>
+          </Link>
         </p>
 
       </div>
