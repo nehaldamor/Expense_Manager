@@ -5,13 +5,16 @@ const Company = require("../models/Company");
 const Invite = require("../models/Invite");
 const VerifyToken = require("../models/VerifyToken");
 const crypto = require("crypto");
-const sendEmail = require("../utils/sendEmail");
+const {sendEmail} = require("../utils/sendEmail");
 
 module.exports.signup=async (req,res,next)=> {
-    const { name, email, password, token } = req.body;
+  const { name, email, password, token } = req.body;
   let companyId, role = "admin";
-
-  if (token) {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+    if (token) {
     const invite = await Invite.findOne({ token, used: false });
     if (!invite) return res.status(400).json({ message: "Invalid invite" });
 
