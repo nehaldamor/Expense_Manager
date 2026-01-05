@@ -28,7 +28,7 @@ const Brevo =require("@getbrevo/brevo");
 const dotenv =require("dotenv");
 dotenv.config();
 
-module.export.sendEmail = async (to, subject, message,attachments=[]) => {
+module.exports.sendEmail = async (to, subject, message,attachments=[]) => {
   try {
     const apiInstance = new Brevo.TransactionalEmailsApi();
 
