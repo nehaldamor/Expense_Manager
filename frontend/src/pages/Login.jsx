@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import api from "../api/api";
 import { AuthContext } from "../context/AuthContext";
 
@@ -10,12 +11,11 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await api.post("/auth/login", { email, password });
-      console.log(res);
-      const data=res.data;
-      login(data.user,data.token);
+      const data = res.data;
+      login(data.user, data.token);
       window.location = "/dashboard";
     } catch (err) {
-      alert("Invalid email or password",res.err);
+      alert("Invalid email or password");
     }
   };
 
@@ -62,9 +62,12 @@ export default function Login() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Don’t have an account?{" "}
-          <a href="/signup" className="text-blue-600 font-medium hover:underline">
+          <Link
+            to="/signup"
+            className="text-blue-600 font-medium hover:underline"
+          >
             Sign up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
